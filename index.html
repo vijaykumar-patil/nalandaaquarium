@@ -82,8 +82,26 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 1962–2025 Nalanda Aquarium. All Rights Reserved.</p>
+            <p>&copy; 1962–<span id="year"></span> Nalanda Aquarium. All Rights Reserved.</p>
+            <p id="visit-counter">Site visits: <span id="count">Loading...</span></p>
         </div>
     </footer>
+
+    <script>
+        // 🔹 Set dynamic year
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // 🔹 Visitor counter
+        const counterUrl = 'https://api.countapi.xyz/hit/nalandaaquarium.com/visits';
+
+        fetch(counterUrl)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('count').innerText = data.value.toLocaleString();
+            })
+            .catch(() => {
+                document.getElementById('count').innerText = '—';
+            });
+    </script>
 </body>
 </html>

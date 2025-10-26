@@ -111,3 +111,9 @@ footer {
     width: auto;
     border-radius: 8px;
 }
+
+#visit-counter {
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: #ddd;
+}
