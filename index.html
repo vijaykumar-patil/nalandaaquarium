@@ -88,18 +88,17 @@
     </footer>
 
     <script>
-        // 🔹 Set dynamic year
         document.getElementById("year").textContent = new Date().getFullYear();
 
-        // 🔹 Visitor counter
-        const counterUrl = 'https://api.countapi.xyz/hit/nalandaaquarium.com/visits';
+        const counterUrl = 'https://countapi.jorgelbg.me/hit/nalandaaquarium/visits';
 
         fetch(counterUrl)
             .then(res => res.json())
             .then(data => {
                 document.getElementById('count').innerText = data.value.toLocaleString();
             })
-            .catch(() => {
+            .catch(err => {
+                console.error("Counter error:", err);
                 document.getElementById('count').innerText = '—';
             });
     </script>
