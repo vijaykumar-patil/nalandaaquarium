@@ -143,13 +143,25 @@
     // === Year + Counter ===
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    const counterUrl = 'https://countapi.jorgelbg.me/hit/nalandaaquarium/visits';
+    // Use the official CounterAPI
+    const counterUrl = 'https://api.counterapi.dev/v1/nalandaaquarium/visits/up';
+
     fetch(counterUrl)
         .then(res => res.json())
         .then(data => {
-        document.getElementById('count').innerText = data.value.toLocaleString();
+            if (data && data.count !== undefined) {
+                document.getElementById('count').innerText = data.count.toLocaleString();
+            } else {
+                document.getElementById('count').innerText = '—';
+                console.error("Unexpected response:", data);
+            }
         })
-        .catch(() => document.getElementById('count').innerText = '—');
+        .catch(err => {
+            console.error("Counter error:", err);
+            document.getElementById('count').innerText = '—';
+        });
+
+
 
     // === Lightbox Gallery ===
     const mediaItems = [...document.querySelectorAll(".image-grid img, .image-grid video")];
