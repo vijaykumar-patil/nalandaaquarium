@@ -117,7 +117,6 @@ footer {
     font-size: 0.9rem;
     color: #ddd;
 }
-
 .image-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -125,13 +124,89 @@ footer {
   margin-top: 20px;
 }
 
-.image-grid img {
+/* Thumbnails (images & videos) */
+.image-grid img,
+.image-grid video {
   width: 100%;
+  height: 220px;
+  object-fit: cover;
   border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  transition: transform 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease;
+  cursor: pointer;
 }
 
-.image-grid img:hover {
-  transform: scale(1.05);
+.image-grid img:hover,
+.image-grid video:hover {
+  transform: scale(1.03);
+}
+
+/* Popup (lightbox) */
+.image-popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  flex-direction: column;
+}
+
+.image-popup.active {
+  display: flex;
+}
+
+.image-popup-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-popup img,
+.image-popup video {
+  max-width: 100%;
+  max-height: 85vh;
+  border-radius: 10px;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
+}
+
+.image-popup video {
+  background: black;
+}
+
+/* Close & navigation buttons */
+.image-popup span.close-btn,
+.image-popup button.nav-btn {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 2100;
+  transition: background 0.3s ease;
+}
+
+.image-popup span.close-btn {
+  top: 20px;
+  right: 30px;
+  padding: 5px 12px;
+  border-radius: 50%;
+}
+
+.image-popup button.nav-btn:hover,
+.image-popup span.close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.image-popup button.prev-btn {
+  left: 20px;
+}
+
+.image-popup button.next-btn {
+  right: 20px;
 }

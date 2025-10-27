@@ -65,14 +65,8 @@
                 <h3>Custom Aquariums</h3>
                 <div class="image-grid">
                     <img src="media/custom_aquariums/customaquarium.jpeg" alt="Large custom aquarium" >
-                </div>
-                <div class="image-grid">
                     <img src="media/custom_aquariums/customaquarium2.jpeg" alt="Large custom aquarium">
-                </div>
-                <div class="image-grid">
                     <img src="media/custom_aquariums/customaquarium3 (2).jpeg" alt="Large custom aquarium">
-                </div>
-                <div class="image-grid">
                     <img src="media/custom_aquariums/customaquarium3 (1).jpeg" alt="Large custom aquarium">
                     <video controls width="100%" poster="media/custom_aquariums/video1.jpg"> <source src="media/custom_aquariums/video1.mp4" type="video/mp4">Walk around </video>
                     <video controls width="100%" poster="media/custom_aquariums/video2.jpg"><source src="media/custom_aquariums/video2.mp4" type="video/mp4">Walk around</video>
@@ -81,6 +75,13 @@
                     <video controls width="100%" poster="media/custom_aquariums/IMG_1033.jpg"><source src="media/custom_aquariums/IMG_1033.mp4" type="video/mp4">Walk around</video>
                     <video controls width="100%" poster="media/custom_aquariums/IMG_1051.jpg"><source src="media/custom_aquariums/IMG_1051.mp4" type="video/mp4">Walk around</video>
                     <video controls width="100%" poster="media/custom_aquariums/IMG_1056.jpg"><source src="media/custom_aquariums/IMG_1056.mp4" type="video/mp4">Walk around</video>
+                    <img src="media/custom_aquariums/customaquarium4(1).jpeg" alt="Large custom aquarium">
+                    <img src="media/custom_aquariums/customaquarium4(2).jpeg" alt="Large custom aquarium">
+                    <img src="media/custom_aquariums/customaquarium4(3).jpeg" alt="Large custom aquarium">
+                    <img src="media/custom_aquariums/customaquarium5.jpeg" alt="Large custom aquarium">
+                    <video controls width="100%" poster="media/custom_aquariums/customaquarium5.jpg"><source src="media/custom_aquariums/customaquarium5.mp4" type="video/mp4">Walk around</video>
+                    <img src="media/custom_aquariums/customaquarium6.jpeg" alt="Large custom aquarium">
+                    <video controls width="100%" poster="media/custom_aquariums/customaquarium6.jpg"><source src="media/custom_aquariums/customaquarium6.mp4" type="video/mp4">Walk around</video>
                 </div>
                 <br>
                 <h3>Terrarium</h3>
@@ -92,6 +93,7 @@
                 <br>
                 <h3>Pond</h3>
                 <div class="image-grid">
+                    <img src="media/ponds/pond.jpeg" alt="Pond">
                     <video controls width="100%" poster="media/ponds/Pond1.jpg"><source src="media/ponds/Pond1.mp4" type="video/mp4">Walk around</video>
                 </div>
             </div>
@@ -126,20 +128,85 @@
         </div>
     </footer>
 
+
+    <!-- Popup (Lightbox) -->
+    <div class="image-popup" id="lightbox">
+    <div class="image-popup-content" id="popupContent"></div>
+    <span class="close-btn" id="closeBtn">&times;</span>
+    <button class="nav-btn prev-btn" id="prevBtn">&#10094;</button>
+    <button class="nav-btn next-btn" id="nextBtn">&#10095;</button>
+    </div>
+
+
     <script>
-        document.getElementById("year").textContent = new Date().getFullYear();
+    // === Year + Counter ===
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-        const counterUrl = 'https://countapi.jorgelbg.me/hit/nalandaaquarium/visits';
+    const counterUrl = 'https://countapi.jorgelbg.me/hit/nalandaaquarium/visits';
+    fetch(counterUrl)
+        .then(res => res.json())
+        .then(data => {
+        document.getElementById('count').innerText = data.value.toLocaleString();
+        })
+        .catch(() => document.getElementById('count').innerText = '—');
 
-        fetch(counterUrl)
-            .then(res => res.json())
-            .then(data => {
-                document.getElementById('count').innerText = data.value.toLocaleString();
-            })
-            .catch(err => {
-                console.error("Counter error:", err);
-                document.getElementById('count').innerText = '—';
-            });
+    // === Lightbox Gallery ===
+    const mediaItems = [...document.querySelectorAll(".image-grid img, .image-grid video")];
+    const lightbox = document.getElementById("lightbox");
+    const popupContent = document.getElementById("popupContent");
+    const closeBtn = document.getElementById("closeBtn");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    let currentIndex = 0;
+
+    function showMedia(index) {
+        const item = mediaItems[index];
+        popupContent.innerHTML = "";
+
+        if (item.tagName === "IMG") {
+        const img = document.createElement("img");
+        img.src = item.src;
+        popupContent.appendChild(img);
+        } else if (item.tagName === "VIDEO") {
+        const vid = document.createElement("video");
+        vid.src = item.querySelector("source") ? item.querySelector("source").src : item.src;
+        vid.controls = true;
+        vid.autoplay = true;
+        popupContent.appendChild(vid);
+        }
+
+        currentIndex = index;
+        lightbox.classList.add("active");
+    }
+
+    mediaItems.forEach((item, index) => {
+        item.addEventListener("click", () => showMedia(index));
+    });
+
+    closeBtn.addEventListener("click", () => lightbox.classList.remove("active"));
+    lightbox.addEventListener("click", e => {
+        if (e.target === lightbox) lightbox.classList.remove("active");
+    });
+
+    prevBtn.addEventListener("click", e => {
+        e.stopPropagation();
+        currentIndex = (currentIndex - 1 + mediaItems.length) % mediaItems.length;
+        showMedia(currentIndex);
+    });
+
+    nextBtn.addEventListener("click", e => {
+        e.stopPropagation();
+        currentIndex = (currentIndex + 1) % mediaItems.length;
+        showMedia(currentIndex);
+    });
+
+    document.addEventListener("keydown", e => {
+        if (!lightbox.classList.contains("active")) return;
+        if (e.key === "Escape") lightbox.classList.remove("active");
+        if (e.key === "ArrowLeft") prevBtn.click();
+        if (e.key === "ArrowRight") nextBtn.click();
+    });
     </script>
+
 </body>
 </html>
