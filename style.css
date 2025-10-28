@@ -117,17 +117,20 @@ footer {
     font-size: 0.9rem;
     color: #ddd;
 }
+
 .image-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, max-content));
   gap: 15px;
   margin-top: 20px;
+  justify-content: start;  /* ✅ left align the entire grid */
+  justify-items: start;    /* ✅ left align each item */
 }
 
 /* Thumbnails (images & videos) */
 .image-grid img,
 .image-grid video {
-  width: 100%;
+  width: 220px;
   height: 220px;
   object-fit: cover;
   border-radius: 10px;
