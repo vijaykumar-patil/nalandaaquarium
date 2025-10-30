@@ -131,6 +131,7 @@
                     <img src="media/custom_aquariums/cust8(1).jpeg" alt="Large custom aquarium">
                     <video controls width="100%" poster="media/custom_aquariums/cust8(1).jpeg"><source src="media/custom_aquariums/cust8.mp4" type="video/mp4">Walk around</video>
                     <video controls width="100%" poster="media/custom_aquariums/cust8.jpg"><source src="media/custom_aquariums/cust8(1).mp4" type="video/mp4">Walk around</video>
+                    <video controls width="100%" poster="media/custom_aquariums/cust9.jpg"><source src="media/custom_aquariums/cust9.mp4" type="video/mp4">Walk around</video>
                 </div>
                 <br>
                 <h3>Imported Aquariums</h3>
@@ -200,20 +201,20 @@
 
 
     <script>
-    // === Year + Counter ===
-    document.getElementById("year").textContent = new Date().getFullYear();
+        // === Year + Counter ===
+        document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Use the official CounterAPI
-    const counterUrl = 'https://api.counterapi.dev/v1/nalandaaquarium/visits/up';
+        // Use the official CounterAPI
+        const counterUrl = 'https://api.counterapi.dev/v1/nalandaaquarium/visits/up';
 
-    fetch(counterUrl)
+        fetch(counterUrl)
         .then(res => res.json())
         .then(data => {
             if (data && data.count !== undefined) {
-                document.getElementById('count').innerText = data.count.toLocaleString();
+            document.getElementById('count').innerText = data.count.toLocaleString();
             } else {
-                document.getElementById('count').innerText = '—';
-                console.error("Unexpected response:", data);
+            document.getElementById('count').innerText = '—';
+            console.error("Unexpected response:", data);
             }
         })
         .catch(err => {
@@ -221,64 +222,78 @@
             document.getElementById('count').innerText = '—';
         });
 
+        // === Lightbox Gallery ===
+        const mediaItems = [...document.querySelectorAll(".image-grid img, .image-grid video")];
+        const lightbox = document.getElementById("lightbox");
+        const popupContent = document.getElementById("popupContent");
+        const closeBtn = document.getElementById("closeBtn");
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        let currentIndex = 0;
 
+        function stopVideoPlayback() {
+        const video = popupContent.querySelector("video");
+        if (video) video.pause();
+        }
 
-    // === Lightbox Gallery ===
-    const mediaItems = [...document.querySelectorAll(".image-grid img, .image-grid video")];
-    const lightbox = document.getElementById("lightbox");
-    const popupContent = document.getElementById("popupContent");
-    const closeBtn = document.getElementById("closeBtn");
-    const prevBtn = document.getElementById("prevBtn");
-    const nextBtn = document.getElementById("nextBtn");
-    let currentIndex = 0;
-
-    function showMedia(index) {
-        const item = mediaItems[index];
+        function showMedia(index) {
+        stopVideoPlayback(); // stop previous video (if any)
         popupContent.innerHTML = "";
 
+        const item = mediaItems[index];
         if (item.tagName === "IMG") {
-        const img = document.createElement("img");
-        img.src = item.src;
-        popupContent.appendChild(img);
+            const img = document.createElement("img");
+            img.src = item.src;
+            popupContent.appendChild(img);
         } else if (item.tagName === "VIDEO") {
-        const vid = document.createElement("video");
-        vid.src = item.querySelector("source") ? item.querySelector("source").src : item.src;
-        vid.controls = true;
-        vid.autoplay = true;
-        popupContent.appendChild(vid);
+            const vid = document.createElement("video");
+            vid.src = item.querySelector("source") ? item.querySelector("source").src : item.src;
+            vid.controls = true;
+            vid.autoplay = true;
+            popupContent.appendChild(vid);
         }
 
         currentIndex = index;
         lightbox.classList.add("active");
-    }
+        }
 
-    mediaItems.forEach((item, index) => {
+        mediaItems.forEach((item, index) => {
         item.addEventListener("click", () => showMedia(index));
-    });
+        });
 
-    closeBtn.addEventListener("click", () => lightbox.classList.remove("active"));
-    lightbox.addEventListener("click", e => {
-        if (e.target === lightbox) lightbox.classList.remove("active");
-    });
+        closeBtn.addEventListener("click", () => {
+        stopVideoPlayback(); // ✅ stop video on close
+        lightbox.classList.remove("active");
+        });
 
-    prevBtn.addEventListener("click", e => {
+        lightbox.addEventListener("click", e => {
+        if (e.target === lightbox) {
+            stopVideoPlayback(); // ✅ stop video if clicking outside
+            lightbox.classList.remove("active");
+        }
+        });
+
+        prevBtn.addEventListener("click", e => {
         e.stopPropagation();
         currentIndex = (currentIndex - 1 + mediaItems.length) % mediaItems.length;
         showMedia(currentIndex);
-    });
+        });
 
-    nextBtn.addEventListener("click", e => {
+        nextBtn.addEventListener("click", e => {
         e.stopPropagation();
         currentIndex = (currentIndex + 1) % mediaItems.length;
         showMedia(currentIndex);
-    });
+        });
 
-    document.addEventListener("keydown", e => {
+        document.addEventListener("keydown", e => {
         if (!lightbox.classList.contains("active")) return;
-        if (e.key === "Escape") lightbox.classList.remove("active");
+        if (e.key === "Escape") {
+            stopVideoPlayback();
+            lightbox.classList.remove("active");
+        }
         if (e.key === "ArrowLeft") prevBtn.click();
         if (e.key === "ArrowRight") nextBtn.click();
-    });
+        });
     </script>
 
 </body>
