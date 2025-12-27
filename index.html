@@ -185,11 +185,11 @@
                     <video controls width="100%" poster="media/custom_aquariums/video6.png"> <source src="media/custom_aquariums/video6.mp4" type="video/mp4">Walk around</video>
                     <img src="media/custom_aquariums/custom10.jpeg" alt="Large custom aquarium">
                     <video controls width="100%" poster="media/custom_aquariums/custom10.png"> <source src="media/custom_aquariums/custom10.mp4" type="video/mp4">Walk around</video>
-                    <video controls width="100%" poster="media/custom_aquariums/custom11.png"> <source src="media/custom_aquariums/custom11.mp4" type="video/mp4">Since 2015, 10 years and still looking new.</video>
-                    <img src="media/custom_aquariums/custom12(1).jpeg" alt="Manufactured year 2007.Hara Housing & Land Developers Company Pvt. Ltd.">
-                    <img src="media/custom_aquariums/custom12(2).jpeg" alt="Manufactured year 2007.Hara Housing & Land Developers Company Pvt. Ltd.">
-                    <video controls width="100%" poster="media/custom_aquariums/custom12.png"> <source src="media/custom_aquariums/custom12.mp4" type="video/mp4">Manufactured year 2007.Hara Housing & Land Developers Company Pvt. Ltd.</video>
-                    <video controls width="100%" poster="media/custom_aquariums/custom13.png"> <source src="media/custom_aquariums/custom13.mp4" type="video/mp4">Manufactured year 2007.Hara Housing & Land Developers Company Pvt. Ltd.</video>
+                    <video controls width="100%" data-description="Since 2015, 10 years and still looking new." poster="media/custom_aquariums/custom11.png"> <source src="media/custom_aquariums/custom11.mp4" type="video/mp4">Since 2015, 10 years and still looking new.</video>
+                    <img src="media/custom_aquariums/custom12(1).jpeg" data-description="Manufactured year 2007.Hara Housing & Land Developers Company Pvt. Ltd." alt="Manufactured year 2007.Hara Housing & Land Developers Company Pvt. Ltd.">
+                    <img src="media/custom_aquariums/custom12(2).jpeg" data-description="Manufactured year 2007.Hara Housing & Land Developers Company Pvt. Ltd." alt="Manufactured year 2007.Hara Housing & Land Developers Company Pvt. Ltd.">
+                    <video controls width="100%" data-description="Manufactured year 2007.Hara Housing & Land Developers Company Pvt. Ltd." poster="media/custom_aquariums/custom12.png"> <source src="media/custom_aquariums/custom12.mp4" type="video/mp4">Manufactured year 2007.Hara Housing & Land Developers Company Pvt. Ltd.</video>
+                    <video controls width="100%" data-description="Manufactured year 2007.Hara Housing & Land Developers Company Pvt. Ltd." poster="media/custom_aquariums/custom13.png"> <source src="media/custom_aquariums/custom13.mp4" type="video/mp4">Manufactured year 2007.Hara Housing & Land Developers Company Pvt. Ltd.</video>
 
                 </div>
                 <br>
@@ -308,24 +308,35 @@
         }
 
         function showMedia(index) {
-        stopVideoPlayback(); // stop previous video (if any)
-        popupContent.innerHTML = "";
+            stopVideoPlayback(); 
+            popupContent.innerHTML = "";
 
-        const item = mediaItems[index];
-        if (item.tagName === "IMG") {
-            const img = document.createElement("img");
-            img.src = item.src;
-            popupContent.appendChild(img);
-        } else if (item.tagName === "VIDEO") {
-            const vid = document.createElement("video");
-            vid.src = item.querySelector("source") ? item.querySelector("source").src : item.src;
-            vid.controls = true;
-            vid.autoplay = true;
-            popupContent.appendChild(vid);
-        }
+            const item = mediaItems[index];
+            
+            // 1. Create the Media Element
+            if (item.tagName === "IMG") {
+                const img = document.createElement("img");
+                img.src = item.src;
+                popupContent.appendChild(img);
+            } else if (item.tagName === "VIDEO") {
+                const vid = document.createElement("video");
+                vid.src = item.querySelector("source") ? item.querySelector("source").src : item.src;
+                vid.controls = true;
+                vid.autoplay = true;
+                popupContent.appendChild(vid);
+            }
 
-        currentIndex = index;
-        lightbox.classList.add("active");
+            // 2. Create and append the Description
+            const descriptionText = item.getAttribute("data-description");
+            if (descriptionText) {
+                const descDiv = document.createElement("div");
+                descDiv.className = "popup-description";
+                descDiv.innerText = descriptionText;
+                popupContent.appendChild(descDiv);
+            }
+
+            currentIndex = index;
+            lightbox.classList.add("active");
         }
 
         mediaItems.forEach((item, index) => {
