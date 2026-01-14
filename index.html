@@ -295,23 +295,43 @@
         // === Year + Counter ===
         document.getElementById("year").textContent = new Date().getFullYear();
 
-        // Use the official CounterAPI
         const counterUrl = 'https://api.counterapi.dev/v1/nalandaaquarium/visits/up';
+        const countElement = document.getElementById('count');
 
+        // Immediately display the cached count if available
+        const cachedCount = sessionStorage.getItem('visitCount');
+        if (cachedCount) {
+            countElement.innerText = Number(cachedCount).toLocaleString();
+        }
+
+        // Fetch the latest count from the API
         fetch(counterUrl)
-        .then(res => res.json())
-        .then(data => {
-            if (data && data.count !== undefined) {
-            document.getElementById('count').innerText = data.count.toLocaleString();
-            } else {
-            document.getElementById('count').innerText = '—';
-            console.error("Unexpected response:", data);
-            }
-        })
-        .catch(err => {
-            console.error("Counter error:", err);
-            document.getElementById('count').innerText = '—';
-        });
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`HTTP error! Status: ${res.status}`);
+                }
+                return res.json();
+            })
+            .then(data => {
+                if (data && data.count !== undefined) {
+                    // Update the displayed count and cache the new value
+                    countElement.innerText = data.count.toLocaleString();
+                    sessionStorage.setItem('visitCount', data.count);
+                } else {
+                    // If the response is malformed, display an error
+                    if (!cachedCount) {
+                        countElement.innerText = '—';
+                    }
+                    console.error("Unexpected API response:", data);
+                }
+            })
+            .catch(err => {
+                // If the fetch fails, rely on the cached value if it exists
+                if (!cachedCount) {
+                    countElement.innerText = '—';
+                }
+                console.error("Counter API error:", err);
+            });
 
         // === Lightbox Gallery ===
         const mediaItems = [...document.querySelectorAll(".image-grid img, .image-grid video")];
