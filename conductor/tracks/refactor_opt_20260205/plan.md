@@ -6,7 +6,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Code Audit & Preparation' (Protocol in workflow.md)
 
 ## Phase 2: HTML & CSS Refactoring
-- [ ] Task: Refactor `index.html` to use semantic HTML5 elements where missing.
+- [x] Task: Refactor `index.html` to use semantic HTML5 elements where missing. (7abf59d)
 - [ ] Task: Update `style.css` with CSS variables for the brand colors defined in `product-guidelines.md`.
 - [ ] Task: Organize `style.css` into logical sections (Global, Layout, Components, Media Queries).
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: HTML & CSS Refactoring' (Protocol in workflow.md)
