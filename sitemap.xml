@@ -7,20 +7,8 @@
 
   <url>
     <loc>https://nalandaaquarium.com/</loc>
-    <lastmod>2025-10-27</lastmod>
+    <lastmod>2026-06-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
-  </url>
-
-  <url>
-    <loc>https://nalandaaquarium.com/gallery</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://nalandaaquarium.com/contact</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
 </urlset>
