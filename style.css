@@ -123,7 +123,7 @@ main {
 }
 
 .sidebar-title {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   text-transform: uppercase;
   letter-spacing: 1px;
   color: var(--color-white);
@@ -154,7 +154,7 @@ main {
 }
 
 .sidebar-item-tag {
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   color: var(--color-teal);
   margin-bottom: 6px;
   display: block;
@@ -163,7 +163,7 @@ main {
 }
 
 .sidebar-item h5 {
-  font-size: 1.1rem;
+  font-size: 1rem;
   margin: 0;
   color: var(--color-white);
   font-family: 'Outfit', sans-serif;
@@ -171,7 +171,7 @@ main {
 }
 
 #right-sidebar .sidebar-item h5 {
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 .sidebar-item:hover h5 {
