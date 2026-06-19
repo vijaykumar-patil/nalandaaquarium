@@ -62,7 +62,7 @@ blogs = [
         "title": "Top 5 Freshwater Fish for Beginners",
         "date": "November 02, 2025",
         "description": "Starting your first aquarium? Here are the hardiest and most vibrant fish to ensure your success.",
-        "image": "media/Store/fish/gold.jpeg"
+        "image": "media/blogs/neon Tetra.jpg"
     },
     {
         "filename": "blog-custom-aquarium.html",
