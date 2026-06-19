@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Aquariums - Nalanda Aquarium Store</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="container header-flex">
+      <a href="index.html">
+        <img src="images/logo.png" alt="Nalanda Aquarium Logo" class="logo">
+      </a>
+      <div>
+        <h1><a href="index.html" style="text-decoration: none; color: inherit;">Nalanda Aquarium</a></h1>
+        <p class="tagline">Since 1962 — Crafting Long-Lasting, Durable Aquariums</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="global-layout-grid">
+    <!-- Left Sidebar for Store & Stock -->
+    <aside id="left-sidebar" class="sticky-sidebar"></aside>
+
+    <div class="main-column">
+      <section>
+        <h2>Custom Aquariums</h2>
+        <p style="text-align: center; margin-bottom: 40px; font-size: 1.1em;">Browse our Custom Aquariums below. To purchase, click <img src="images/WhatsApp.svg" alt="WhatsApp" style="width: 22px; vertical-align: middle; margin: 0 4px; border-radius: 50%;"> <strong>WhatsApp</strong> in the corner or call 📞 <strong>+91 9686774336</strong>.</p>
+        
+        <div class="product-category" id="aquariums">
+          <div class="product-grid">
+            <div style="grid-column: 1 / -1; background: linear-gradient(135deg, var(--color-primary), var(--color-teal)); border-radius: 12px; padding: 20px; color: white; display: flex; flex-wrap: wrap; gap: 30px; box-shadow: 0 8px 25px rgba(0,0,0,0.2); position: relative; overflow: hidden; margin-bottom: 20px;">
+              <div style="position: absolute; top: 15px; left: -35px; background: #ff4757; color: white; padding: 5px 40px; transform: rotate(-45deg); font-weight: bold; font-size: 0.9em; z-index: 10; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">GREAT DEAL</div>
+              <div style="flex: 1; min-width: 300px; position: relative; z-index: 1;">
+                <video controls poster="media/Store/aquarium/Custom%209x3x2ft%20.png" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+                  <source src="media/Store/aquarium/custom%209x3x2ft.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <div style="flex: 1; min-width: 300px; display: flex; flex-direction: column; justify-content: center; z-index: 1;">
+                <h3 style="color: #4afffe; font-size: 1.8em; margin-bottom: 15px; margin-top: 0; line-height: 1.2;">9ft x 3ft x 2ft Monster Showpiece Tank</h3>
+                <p style="font-size: 1.1em; line-height: 1.6; margin-bottom: 20px;"><strong>THE ULTIMATE SHOWPIECE AQUARIUM IS FOR SALE!</strong> Ever wanted a true monster tank? This custom-built beast is the perfect centerpiece for a dream reef, massive monster fish setup, or a breathtaking planted aquascape.</p>
+                <p style="font-size: 1.1em; line-height: 1.6; margin-bottom: 25px;">Custom tanks this size rarely hit the market. Don't miss out! DM us right now for price, glass specs, and details! SHARE this video with a fellow fishkeeper who needs a major upgrade!</p>
+                <a href="https://wa.me/916360782002?text=I'm%20interested%20in%20the%209x3x2ft%20Monster%20Tank!" target="_blank" style="display: inline-block; background: #25D366; color: white; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.1em; align-self: flex-start; transition: transform 0.2s ease; box-shadow: 0 4px 10px rgba(37,211,102,0.4);">
+                  <img src="images/WhatsApp.svg" style="width: 20px; vertical-align: middle; margin-right: 8px;"> DM for Price
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Right Sidebar for Blogs -->
+    <aside id="right-sidebar" class="sticky-sidebar"></aside>
+  </main>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/916360782002?text=Hi%20Nalanda%20Aquarium%2C%20I%20am%20interested%20in%20your%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+    <img src="images/WhatsApp.svg" alt="WhatsApp" class="whatsapp-icon">
+  </a>
+
+  <footer>
+    <div class="container">
+    <div style="margin-bottom: 25px; padding-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+      <h4 style="color: var(--color-teal); margin-bottom: 15px;">Nalanda Aquarium - Bangalore's Premium Aquatic Store</h4>
+      <p style="color: #666; font-size: 0.85em; line-height: 1.6; max-width: 1000px; margin: 0 auto;">
+        Serving the aquascaping and monster fish keeping community with top-tier products. 
+        <strong>Our Live Stock & Custom Builds:</strong> Custom 9x3x2ft Monster Tanks, Blue Diamond Discus, Leopard Snake Skin Discus, Red Checkerboard, Super Reds, Melons, Koi, and Exotic Freshwater Fishes.
+        <strong>Filters & Air Pumps:</strong> Boyu U9900, Dophin AP1302, Hailea AC DC Charger, Eheim Classic 1500xl, Sunsun HW 304B, Dolphin C2400, Sebo WP-707C, Atman, and more.
+        <strong>Lighting & Heaters:</strong> Chihiros LED Light C361, Neo-Helios S3 Plus Nano, Solar Tropi Color Booster, Eheim Thermocontrol, RS Electrical 300W Heaters, and Dophin AH 1006.
+      </p>
+    </div>
+
+      <p>&copy; 1962–<span id="year"></span> Nalanda Aquarium. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+<script src="sidebar.js"></script>
+</body>
+</html>
