@@ -26,13 +26,13 @@ print(f"Generated SEO block with {len(all_products)} products.")
 
 # We need to replace the old stock list in all HTML files and python files
 # The old block looks like:
-# <strong>Our Live Stock & Custom Builds:</strong> Custom 9x3x2ft Monster Tanks, Blue Diamond Discus, Leopard Snake Skin Discus, Red Checkerboard, Red Super Rafflesia Discus, Super Reds, Melons, Koi, and Exotic Freshwater Fishes.
+# <strong>Our Live Stock & Custom Builds:</strong> Custom 9x3x2ft Monster Tanks, Blue Diamond Discus, Leopard Snake Skin Discus, Red Checkerboard, Red Super Rafflesia Discus, Super Reds, Red flora and Super Rafflesia, Koi, and Exotic Freshwater Fishes.
 #         <strong>Filters & Air Pumps:</strong> Boyu U9900, Dophin AP1302, Hailea AC DC Charger, Eheim Classic 1500xl, Sunsun HW 304B, Dolphin C2400, Sobo WP-707C, Atman, and more.
 #         <strong>Lighting & Heaters:</strong> Chihiros LED Light C361, Neo-Helios S3 Plus Nano, Solar Tropi Color Booster, Eheim Thermocontrol, RS Electrical 300W Heaters, and Dophin AH 1006.
 
 import re
 
-target_files = glob.glob("*.html") + glob.glob("*.py")
+target_files = ["sidebar.js"]
 
 # Let's find the exact block to replace using regex
 for file in target_files:
@@ -43,7 +43,7 @@ for file in target_files:
         content = f.read()
         
     # Regex to match the three strong tags block
-    pattern = r'<strong>Our Live Stock & Custom Builds:</strong>.*?<strong>Lighting & Heaters:</strong>.*?\.'
+    pattern = r'<strong>All Products & Stock:</strong>.*?(?=</div>)'
     
     if re.search(pattern, content, re.DOTALL):
         content = re.sub(pattern, new_seo_block.strip(), content, flags=re.DOTALL)

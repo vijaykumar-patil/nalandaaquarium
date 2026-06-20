@@ -1,7 +1,7 @@
 import glob
 
-old_text = "Red Checkerboard, Red Super Rafflesia Discus, Super Reds, Melons"
-new_text = "Red Checkerboard, Red Super Rafflesia Discus, Super Reds, Melons"
+old_text = "Red Checkerboard, Red Super Rafflesia Discus, Super Reds, Red flora and Super Rafflesia"
+new_text = "Red Checkerboard, Red Super Rafflesia Discus, Super Reds, Red flora and Super Rafflesia"
 
 files = glob.glob("*.html") + glob.glob("*.py")
 

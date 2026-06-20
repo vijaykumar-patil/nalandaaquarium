@@ -1,7 +1,5 @@
-import glob
-import re
-
-seo_content = """
+<footer>
+    <div class="container">
     <div style="margin-bottom: 25px; padding-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05);">
       <h4 style="color: var(--color-teal); margin-bottom: 15px;">Nalanda Aquarium - Bangalore's Premium Aquatic Store</h4>
       <p style="color: #666; font-size: 0.85em; line-height: 1.6; max-width: 1000px; margin: 0 auto;">
@@ -14,37 +12,17 @@ seo_content = """
         </details>
       </p>
     </div>
-"""
 
-files = glob.glob("*.html")
-files.append("generate_store.py")
+      
+    <div style="margin-top: 15px; font-size: 0.9em; text-align: center;">
+      <a href="index.html" style="color: var(--color-teal); text-decoration: none; margin: 0 10px;">Home</a> | 
+      <a href="store.html" style="color: var(--color-teal); text-decoration: none; margin: 0 10px;">Full Store</a> | 
+      <a href="store-fishes.html" style="color: var(--color-teal); text-decoration: none; margin: 0 10px;">Fishes</a> | 
+      <a href="store-aquariums.html" style="color: var(--color-teal); text-decoration: none; margin: 0 10px;">Aquariums</a> | 
+      <a href="blog.html" style="color: var(--color-teal); text-decoration: none; margin: 0 10px;">Blog</a>
+    </div>
 
-for file in files:
-    if file.startswith("store-"):
-        continue
-        
-    with open(file, 'r', encoding='utf-8') as f:
-        content = f.read()
-        
-    if "Nalanda Aquarium - Bangalore's Premium Aquatic Store" in content:
-        print(f"Already injected in {file}")
-        continue
-        
-    if "<footer>\n    <div class=\"container\">" in content:
-        # Existing footer found! Inject inside the container.
-        content = content.replace('<footer>\n    <div class="container">', '<footer>\n    <div class="container">' + seo_content)
-    elif "<footer " in content and "class=\"container\"" in content:
-        # The new footer I just generated
-        # Actually it's better to just leave the ones I just generated since they look good, but they don't have the counter.
-        # But wait, my previous script injected a completely new footer into the new blogs! 
-        # I should just replace the <p style="color: #555;... with the counter for the newly generated ones if needed, or leave it.
-        pass
-    else:
-        # It's an old file with a different footer format, or no footer.
-        pass
-        
-    with open(file, 'w', encoding='utf-8') as f:
-        f.write(content)
-        
-    print(f"Updated {file}")
-
+      <p>&copy; 1962–<span id="year"></span> Nalanda Aquarium. All Rights Reserved.</p>
+      <p id="visit-counter">Site visits: <span id="count">Loading...</span></p>
+    </div>
+  </footer>
