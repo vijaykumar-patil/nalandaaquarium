@@ -19,6 +19,15 @@ html_template_start = '''<!DOCTYPE html>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title} - Nalanda Aquarium Store</title>
   <link rel="stylesheet" href="style.css?v=2">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TPH1JMNB3K"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){{dataLayer.push(arguments);}}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TPH1JMNB3K');
+  </script>
 </head>
 <body>
   <header>
@@ -70,6 +79,7 @@ html_template_end = '''          </div>
     </div>
 
       <p>&copy; 1962–<span id="year"></span> Nalanda Aquarium. All Rights Reserved.</p>
+      <p id="visit-counter">Site visits: <span id="count">Loading...</span></p>
     </div>
   </footer>
 
@@ -330,6 +340,7 @@ for cat_id, cat_info in categories.items():
     </div>
 
       <p>&copy; 1962–<span id="year"></span> Nalanda Aquarium. All Rights Reserved.</p>
+      <p id="visit-counter">Site visits: <span id="count">Loading...</span></p>
     </div>
   </footer>
 

@@ -97,4 +97,31 @@ document.addEventListener("DOMContentLoaded", function() {
         let message = `Hi Nalanda Aquarium, I am looking at the "${pageTitle}" page and need some help.`;
         btn.href = `https://wa.me/916360782002?text=${encodeURIComponent(message)}`;
     });
+    // === Visit Counter ===
+    const counterReadOnlyUrl = 'https://api.counterapi.dev/v1/nalandaaquarium/visits';
+    const counterUpUrl = 'https://api.counterapi.dev/v1/nalandaaquarium/visits/up';
+    
+    let urlToFetch = counterReadOnlyUrl;
+    if (!sessionStorage.getItem('counted_visit')) {
+      urlToFetch = counterUpUrl;
+      sessionStorage.setItem('counted_visit', 'true');
+    }
+
+    fetch(urlToFetch)
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.count !== undefined) {
+          const countSpan = document.getElementById('count');
+          if (countSpan) countSpan.innerText = data.count.toLocaleString();
+        } else {
+          const countSpan = document.getElementById('count');
+          if (countSpan) countSpan.innerText = '—';
+          console.error("Unexpected response:", data);
+        }
+      })
+      .catch(err => {
+        console.error("Counter error:", err);
+        const countSpan = document.getElementById('count');
+        if (countSpan) countSpan.innerText = '—';
+      });
 });
