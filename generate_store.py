@@ -87,7 +87,15 @@ for cat_id, cat_info in categories.items():
     html_content = html_template_start.format(title=title, id=cat_id)
 
     if os.path.exists(folder):
-        files = os.listdir(folder)
+        all_files = []
+        for root, _, filenames in os.walk(folder):
+            for filename in filenames:
+                rel_dir = os.path.relpath(root, folder)
+                if rel_dir == ".":
+                    all_files.append(filename)
+                else:
+                    all_files.append(os.path.join(rel_dir, filename).replace("\\", "/"))
+        files = all_files
         files.sort()
         
         # Inject Discus and Koi as the first items in the grid for Fishes
@@ -137,7 +145,7 @@ for cat_id, cat_info in categories.items():
         import re
         def generate_card(file, folder, cat_id):
             ext = os.path.splitext(file)[1].lower()
-            name_no_ext = os.path.splitext(file)[0]
+            name_no_ext = os.path.splitext(os.path.basename(file))[0]
             
             # Clean up trailing numbers used for uniqueness
             display_title = re.sub(r'[\s\-]*\d+$', '', name_no_ext).strip()
@@ -193,15 +201,30 @@ for cat_id, cat_info in categories.items():
         if cat_id == 'fishes':
             discus_files = []
             koi_files = []
+            flowerhorn_files = []
             other_files = []
+            
             for file in files:
+                dir_lower = os.path.dirname(file).lower()
                 name_lower = file.lower()
-                if 'koi' in name_lower or 'gold' in name_lower or 'oranda' in name_lower:
+                
+                # Prioritize directory matching if it exists
+                if 'koi' in dir_lower or 'gold' in dir_lower:
                     koi_files.append(file)
-                elif 'discus' in name_lower or 'blue' in name_lower or 'melon' in name_lower or 'red' in name_lower or 'leopard' in name_lower or 'snake' in name_lower or 'checkerboard' in name_lower or 'turquoise' in name_lower:
+                elif 'discus' in dir_lower:
                     discus_files.append(file)
+                elif 'flowerhorn' in dir_lower:
+                    flowerhorn_files.append(file)
                 else:
-                    other_files.append(file)
+                    # Fallback to name matching just in case
+                    if 'koi' in name_lower or 'gold' in name_lower or 'oranda' in name_lower:
+                        koi_files.append(file)
+                    elif 'discus' in name_lower or 'blue' in name_lower or 'melon' in name_lower or 'red' in name_lower or 'leopard' in name_lower or 'snake' in name_lower or 'checkerboard' in name_lower or 'turquoise' in name_lower:
+                        discus_files.append(file)
+                    elif 'flowerhorn' in name_lower or 'trimac' in name_lower:
+                        flowerhorn_files.append(file)
+                    else:
+                        other_files.append(file)
             
             html_content += discus_html
             for file in discus_files:
@@ -211,8 +234,15 @@ for cat_id, cat_info in categories.items():
             for file in koi_files:
                 html_content += generate_card(file, folder, cat_id)
                 
-            for file in other_files:
-                html_content += generate_card(file, folder, cat_id)
+            if flowerhorn_files:
+                html_content += '<div style="grid-column: 1 / -1; height: 0;"></div><div class="product-card" style="padding: 20px; text-align: left; background: #caf0f8; border: 2px solid var(--color-primary);"><h4 style="color: var(--color-primary); margin-top: 0; border-bottom: 1px solid rgba(0,51,102,0.2); padding-bottom: 8px;">Flowerhorns In Stock</h4><p style="font-size: 0.9em; margin-bottom: 0;">Check out our premium grade imported Flowerhorns!</p></div>\n'
+                for file in flowerhorn_files:
+                    html_content += generate_card(file, folder, cat_id)
+                    
+            if other_files:
+                html_content += '<div style="grid-column: 1 / -1; height: 0;"></div><div class="product-card" style="padding: 20px; text-align: left; background: #caf0f8; border: 2px solid var(--color-primary);"><h4 style="color: var(--color-primary); margin-top: 0; border-bottom: 1px solid rgba(0,51,102,0.2); padding-bottom: 8px;">Other Exotic Fishes</h4><p style="font-size: 0.9em; margin-bottom: 0;">We carry a wide variety of exotic and community fishes.</p></div>\n'
+                for file in other_files:
+                    html_content += generate_card(file, folder, cat_id)
                 
         else:
             for file in files:
