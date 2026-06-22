@@ -115,6 +115,8 @@ main {
 .sticky-sidebar {
   position: sticky;
   top: 20px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
   padding: 32px;
   background: var(--color-primary);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -122,8 +124,23 @@ main {
   box-shadow: 0 8px 24px rgba(0,0,0,0.15);
 }
 
+/* Custom scrollbar for sidebars to keep it elegant */
+.sticky-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+.sticky-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sticky-sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+.sticky-sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
 .sidebar-title {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   text-transform: uppercase;
   letter-spacing: 1px;
   color: var(--color-white);
@@ -154,7 +171,7 @@ main {
 }
 
 .sidebar-item-tag {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   color: var(--color-teal);
   margin-bottom: 6px;
   display: block;
@@ -163,7 +180,7 @@ main {
 }
 
 .sidebar-item h5 {
-  font-size: 1rem;
+  font-size: 0.9rem;
   margin: 0;
   color: var(--color-white);
   font-family: 'Outfit', sans-serif;
@@ -171,7 +188,7 @@ main {
 }
 
 #right-sidebar .sidebar-item h5 {
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .sidebar-item:hover h5 {
@@ -184,6 +201,14 @@ main {
   }
   .sticky-sidebar {
     position: static;
+    max-height: none;
+    overflow-y: visible;
+  }
+  .sidebar-title {
+    font-size: 1.1rem;
+  }
+  .sidebar-item h5 {
+    font-size: 0.85rem;
   }
 }
 

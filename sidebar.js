@@ -31,6 +31,10 @@ document.addEventListener("DOMContentLoaded", function() {
         <span class="sidebar-item-tag">Category</span>
         <h5>Fish Food</h5>
       </a>
+      <a href="store-stones.html" class="sidebar-item">
+        <span class="sidebar-item-tag">Category</span>
+        <h5>Stones & Gravel</h5>
+      </a>
 
       <div class="sidebar-title" style="margin-top: 30px;">Our Services</div>
       <a href="https://wa.me/916360782002?text=Hi%20Nalanda%20Aquarium%2C%20I%20am%20interested%20in%20your%20Cleaning%20%26%20Maintenance%20services." target="_blank" class="sidebar-item" style="border-left: 4px solid #25D366; background: rgba(37, 211, 102, 0.1);">
@@ -42,6 +46,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const rightSidebarHTML = `
       <div class="sidebar-title">Our Latest Blogs</div>
+      <a href="blog-gravel.html" class="sidebar-item">
+        <span class="sidebar-item-tag">June 22, 2026</span>
+        <h5>The Essential Guide to Aquarium Substrate</h5>
+      </a>
       <a href="blog-solar-tanning.html" class="sidebar-item">
         <span class="sidebar-item-tag">June 19, 2026</span>
         <h5>The Magic of Solar Tanning Lights</h5>
