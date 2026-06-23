@@ -122,7 +122,10 @@ def make_stones():
     
     all_images = glob.glob(os.path.join(base_dir, "**", "*.*"), recursive=True)
     all_images = [img for img in all_images if img.lower().endswith(('.jpeg', '.jpg', '.png'))]
-    all_images.sort()
+    def extract_number(f):
+        m = re.search(r'\d+', os.path.basename(f))
+        return int(m.group()) if m else 0
+    all_images.sort(key=lambda f: (re.sub(r'\d+', '', os.path.basename(f).lower()), extract_number(f)))
     
     categories = {"Stones": [], "Pebbles": [], "Marbles": [], "Gravel": []}
     
@@ -155,6 +158,12 @@ def make_stones():
             filename = os.path.basename(img_path)
             name_without_ext = os.path.splitext(filename)[0]
             display_name = re.sub(r'([a-zA-Z]+)(\d+)', r'\1 \2', name_without_ext).capitalize()
+            if display_name.startswith('Pebbles'):
+                display_name = display_name.replace('Pebbles', 'Pebble')
+            elif display_name.startswith('Marbles'):
+                display_name = display_name.replace('Marbles', 'Marble')
+            elif display_name.startswith('Stones'):
+                display_name = display_name.replace('Stones', 'Stone')
             
             content += f'''            <div class="product-card">
               <img src="{encoded_url}" alt="{display_name}" style="width: 100%; height: 200px; object-fit: contain; padding: 15px; background: #fff; box-sizing: border-box; border-radius: 8px 8px 0 0; margin-bottom: 15px;">
@@ -219,5 +228,4 @@ def make_fishes():
 
 if __name__ == '__main__':
     make_stones()
-    make_fishes()
     print("Done generating grouped pages.")
