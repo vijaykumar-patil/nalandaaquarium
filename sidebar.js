@@ -110,28 +110,15 @@ document.addEventListener("DOMContentLoaded", function() {
     const counterUpUrl = 'https://api.counterapi.dev/v1/nalandaaquarium/visits/up';
     
     let urlToFetch = counterReadOnlyUrl;
-    if (!sessionStorage.getItem('counted_visit')) {
-      urlToFetch = counterUpUrl;
-      sessionStorage.setItem('counted_visit', 'true');
+    try {
+      if (!sessionStorage.getItem('counted_visit')) {
+        urlToFetch = counterUpUrl;
+        sessionStorage.setItem('counted_visit', 'true');
+      }
+    } catch (e) {
+      // Ignore sessionStorage errors (e.g., when third-party cookies are blocked)
+      console.warn("sessionStorage access denied", e);
     }
-
-    fetch(urlToFetch)
-      .then(res => res.json())
-      .then(data => {
-        if (data && data.count !== undefined) {
-          const countSpan = document.getElementById('count');
-          if (countSpan) countSpan.innerText = data.count.toLocaleString();
-        } else {
-          const countSpan = document.getElementById('count');
-          if (countSpan) countSpan.innerText = '—';
-          console.error("Unexpected response:", data);
-        }
-      })
-      .catch(err => {
-        console.error("Counter error:", err);
-        const countSpan = document.getElementById('count');
-        if (countSpan) countSpan.innerText = '—';
-      });
 
     const footerHTML = `<footer>
     <div class="container">
@@ -166,4 +153,25 @@ document.addEventListener("DOMContentLoaded", function() {
     if (yearSpan) {
         yearSpan.textContent = new Date().getFullYear();
     }
+    
+    fetch(urlToFetch)
+      .then(res => {
+        if (!res.ok) throw new Error('Network response was not ok');
+        return res.json();
+      })
+      .then(data => {
+        const countSpan = document.getElementById('count');
+        if (countSpan) {
+            if (data && data.count !== undefined) {
+                countSpan.innerText = data.count.toLocaleString();
+            } else {
+                countSpan.innerText = '—';
+            }
+        }
+      })
+      .catch(err => {
+        console.error("Counter error:", err);
+        const countSpan = document.getElementById('count');
+        if (countSpan) countSpan.innerText = '—';
+      });
 });
