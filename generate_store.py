@@ -69,7 +69,7 @@ html_template_end = '''          </div>
   
 
   
-<script src="sidebar.js?v=3"></script>
+<script src="sidebar.js?v=4"></script>
 </body>
 </html>'''
 
@@ -313,7 +313,7 @@ for cat_id, cat_info in categories.items():
   
 
   
-<script src="sidebar.js?v=3"></script>
+<script src="sidebar.js?v=4"></script>
 </body>
 </html>'''
     

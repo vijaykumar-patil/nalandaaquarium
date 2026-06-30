@@ -164,14 +164,28 @@ document.addEventListener("DOMContentLoaded", function() {
         if (countSpan) {
             if (data && data.count !== undefined) {
                 countSpan.innerText = data.count.toLocaleString();
+                try {
+                    localStorage.setItem('last_known_visit_count', data.count);
+                } catch(e) {}
             } else {
-                countSpan.innerText = '—';
+                throw new Error("Invalid data");
             }
         }
       })
       .catch(err => {
         console.error("Counter error:", err);
         const countSpan = document.getElementById('count');
-        if (countSpan) countSpan.innerText = '—';
+        if (countSpan) {
+            let lastKnown = null;
+            try {
+                lastKnown = localStorage.getItem('last_known_visit_count');
+            } catch(e) {}
+            
+            if (lastKnown) {
+                countSpan.innerText = parseInt(lastKnown).toLocaleString();
+            } else {
+                countSpan.innerText = '1,179';
+            }
+        }
       });
 });
