@@ -106,8 +106,8 @@ document.addEventListener("DOMContentLoaded", function() {
         btn.href = `https://wa.me/916360782002?text=${encodeURIComponent(message)}`;
     });
     // === Visit Counter ===
-    const counterReadOnlyUrl = 'https://api.counterapi.dev/v1/nalandaaquarium/visits';
-    const counterUpUrl = 'https://api.counterapi.dev/v1/nalandaaquarium/visits/up';
+    const counterReadOnlyUrl = 'https://abacus.jasoncameron.dev/get/nalandaaquarium/visits';
+    const counterUpUrl = 'https://abacus.jasoncameron.dev/hit/nalandaaquarium/visits';
     
     let urlToFetch = counterReadOnlyUrl;
     try {
@@ -162,10 +162,11 @@ document.addEventListener("DOMContentLoaded", function() {
       .then(data => {
         const countSpan = document.getElementById('count');
         if (countSpan) {
-            if (data && data.count !== undefined) {
-                countSpan.innerText = data.count.toLocaleString();
+            if (data && data.value !== undefined) {
+                const totalCount = data.value + 1179;
+                countSpan.innerText = totalCount.toLocaleString();
                 try {
-                    localStorage.setItem('last_known_visit_count', data.count);
+                    localStorage.setItem('last_known_visit_count', totalCount);
                 } catch(e) {}
             } else {
                 throw new Error("Invalid data");
