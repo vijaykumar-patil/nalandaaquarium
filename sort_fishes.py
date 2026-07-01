@@ -15,9 +15,13 @@ for category in soup.find_all("div", class_="product-category"):
         def sort_key(card):
             h4 = card.find("h4")
             title = h4.text.strip().lower() if h4 else ""
+            
+            # Keep stock lists at the top
+            is_list = 0 if card.find("ul") or "in stock" in title else 1
+            
             # Natural sort extraction
             def convert(text): return int(text) if text.isdigit() else text
-            return [convert(c) for c in re.split('([0-9]+)', title)]
+            return [is_list] + [convert(c) for c in re.split('([0-9]+)', title)]
             
         sorted_cards = sorted(cards, key=sort_key)
         
