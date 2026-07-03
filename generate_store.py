@@ -195,6 +195,7 @@ for cat_id, cat_info in categories.items():
             discus_files = []
             koi_files = []
             flowerhorn_files = []
+            arowana_files = []
             other_files = []
             
             for file in files:
@@ -208,14 +209,18 @@ for cat_id, cat_info in categories.items():
                     discus_files.append(file)
                 elif 'flowerhorn' in dir_lower:
                     flowerhorn_files.append(file)
+                elif 'arowana' in dir_lower:
+                    arowana_files.append(file)
                 else:
                     # Fallback to name matching just in case
                     if 'koi' in name_lower or 'gold' in name_lower or 'oranda' in name_lower:
                         koi_files.append(file)
-                    elif 'discus' in name_lower or 'blue' in name_lower or 'melon' in name_lower or 'red' in name_lower or 'leopard' in name_lower or 'snake' in name_lower or 'checkerboard' in name_lower or 'turquoise' in name_lower:
+                    elif 'discus' in name_lower:
                         discus_files.append(file)
                     elif 'flowerhorn' in name_lower or 'trimac' in name_lower:
                         flowerhorn_files.append(file)
+                    elif 'arowana' in name_lower:
+                        arowana_files.append(file)
                     else:
                         other_files.append(file)
             
@@ -230,6 +235,11 @@ for cat_id, cat_info in categories.items():
             if flowerhorn_files:
                 html_content += '<div style="grid-column: 1 / -1; height: 0;"></div><div class="product-card" style="padding: 20px; text-align: left; background: #caf0f8; border: 2px solid var(--color-primary);"><h4 style="color: var(--color-primary); margin-top: 0; border-bottom: 1px solid rgba(0,51,102,0.2); padding-bottom: 8px;">Flowerhorns In Stock</h4><p style="font-size: 0.9em; margin-bottom: 0;">Check out our premium grade imported Flowerhorns!</p></div>\n'
                 for file in flowerhorn_files:
+                    html_content += generate_card(file, folder, cat_id)
+                    
+            if arowana_files:
+                html_content += '<div style="grid-column: 1 / -1; height: 0;"></div><div class="product-card" style="padding: 20px; text-align: left; background: #caf0f8; border: 2px solid var(--color-primary);"><h4 style="color: var(--color-primary); margin-top: 0; border-bottom: 1px solid rgba(0,51,102,0.2); padding-bottom: 8px;">Arowanas In Stock</h4><p style="font-size: 0.9em; margin-bottom: 0;">Premium Arowana collection.</p></div>\n'
+                for file in arowana_files:
                     html_content += generate_card(file, folder, cat_id)
                     
             if other_files:
