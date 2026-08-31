@@ -1,6 +1,7 @@
 import glob
 import os
 import re
+import urllib.parse
 
 html_files = glob.glob("*.html")
 all_files = [os.path.basename(f) for f in glob.glob("**/*.*", recursive=True)]
@@ -41,15 +42,15 @@ for file in html_files:
         if not os.path.exists(href_clean):
             issues.append(f"{file}: Broken link -> {href}")
 
-    # 4. Check for broken img src
+    # 4. Check for broken img/video/script src
     srcs = re.findall(r'src="(.*?)"', content)
     for src in srcs:
-        if src.startswith('http'): continue
+        if src.startswith('http') or src.startswith('//'): continue
         if not src: continue
-        # Strip urlencoding for file check
-        src_unquoted = src.replace("%20", " ")
+        # Strip urlencoding and query parameters for file check
+        src_unquoted = urllib.parse.unquote(src.split('?')[0])
         if not os.path.exists(src_unquoted):
-            issues.append(f"{file}: Broken image -> {src}")
+            issues.append(f"{file}: Broken asset src -> {src}")
 
 if issues:
     print("ISSUES FOUND:")
