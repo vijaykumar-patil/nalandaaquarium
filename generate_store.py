@@ -19,6 +19,11 @@ html_template_start = '''<!DOCTYPE html>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title} - Nalanda Aquarium Store</title>
   <link rel="stylesheet" href="style.css?v=2">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png?v=2">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png?v=2">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png?v=2">
+  <link rel="shortcut icon" href="favicon_io/favicon.ico?v=2">
+  <link rel="manifest" href="favicon_io/site.webmanifest">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-TPH1JMNB3K"></script>
   <script>
