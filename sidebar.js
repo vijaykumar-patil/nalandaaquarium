@@ -37,10 +37,10 @@ document.addEventListener("DOMContentLoaded", function() {
       </a>
 
       <div class="sidebar-title" style="margin-top: 30px;">Our Services</div>
-      <a href="https://wa.me/916360782002?text=Hi%20Nalanda%20Aquarium%2C%20I%20am%20interested%20in%20your%20Cleaning%20%26%20Maintenance%20services." target="_blank" class="sidebar-item" style="border-left: 4px solid #25D366; background: rgba(37, 211, 102, 0.1);">
+      <a href="https://wa.me/916360782002?text=Hi%20Nalanda%20Aquarium%2C%20I%20am%20interested%20in%20your%20Professional%20Services." target="_blank" class="sidebar-item" style="border-left: 4px solid #25D366; background: rgba(37, 211, 102, 0.1);">
         <span class="sidebar-item-tag" style="color: #25D366;">Professional</span>
-        <h5 style="color: #4afffe;">Cleaning & Maintenance</h5>
-        <p style="color: white; margin-top: 5px; margin-bottom: 0; line-height: 1.4;">Expert tank cleaning, deep water changes, filter maintenance, and aquascaping services in Bangalore.</p>
+        <h5 style="color: #4afffe;">Maintenance &amp; Custom Builds</h5>
+        <p style="color: white; margin-top: 5px; margin-bottom: 0; line-height: 1.4;">Expert aquarium maintenance, custom koi ponds, waterfalls, and modern landscaping services in Bangalore.</p>
       </a>
     `;
 
